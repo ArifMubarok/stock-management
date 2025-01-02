@@ -1,0 +1,120 @@
+<div class="px-4 pr-8 w-full h-full pb-4 ml-2">
+  <div class="pt-6 -mt-2">
+    <div
+      class="flex flex-col sm:flex-row space-y-2 items-center sm:justify-between justify-center w-full"
+    >
+      <h1 class="text-blueGray-700 font-semibold">Create new Products</h1>
+    </div>
+  </div>
+
+  <div
+    *ngIf="errorMessage"
+    class="text-white px-4 mt-4 py-2 border-0 rounded relative mb-4 bg-red-500"
+  >
+    <span class="inline-block align-middle mr-8">
+      {{ errorMessage }}
+    </span>
+  </div>
+
+  <!-- Form -->
+  <div class="w-full my-4 h-full">
+    <div class="flex flex-col gap-4 w-full h-full">
+      <div class="w-full flex gap-2">
+        <div class="form-group w-full">
+          <label for="name">Name <span class="text-red-600">*</span></label>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="name"
+          />
+        </div>
+        <div class="form-group w-full">
+          <label for="sku">SKU <span class="text-red-600">*</span></label>
+          <input
+            type="text"
+            placeholder="SKU"
+            name="sku"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="sku"
+          />
+        </div>
+      </div>
+      <div class="w-full flex gap-2">
+        <div class="form-group w-full">
+          <label for="initial-stock">Initial Stock </label>
+          <input
+            type="number"
+            placeholder="Initial Stock"
+            name="initial-stock"
+            min="0"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="initialStock"
+          />
+        </div>
+        <div class="form-group w-full">
+          <label for="latest-input-stock">Latest Input Stock </label>
+          <input
+            type="number"
+            placeholder="Latest Input Stock"
+            name="latest-input-stock"
+            min="0"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="latestInputStock"
+          />
+        </div>
+        <div class="form-group w-full">
+          <label for="latest-output-stock">Latest Output Stock </label>
+          <input
+            type="number"
+            placeholder="Latest Output Stock"
+            name="latest-output-stock"
+            min="0"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="latestOutputStock"
+          />
+        </div>
+        <div class="form-group w-full">
+          <label for="newest-stock">Newest Stock </label>
+          <input
+            type="number"
+            placeholder="Newest Stock"
+            name="newest-stock"
+            min="0"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="newestStock"
+          />
+        </div>
+      </div>
+      <div class="w-full flex gap-2">
+        <div class="form-group w-full">
+          <label for="description">Description</label>
+          <textarea
+            placeholder="Description"
+            name="description"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="description"
+          ></textarea>
+        </div>
+      </div>
+      <div class="w-full flex justify-end items-center gap-2">
+        <button
+          class="bg-white text-black font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md border border-red-500 mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+          [routerLink]="'/settings/products'"
+        >
+          Cancel
+        </button>
+        <button
+          class="bg-red-500 text-white active:bg-red-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md mr-1 mb-1 ease-linear transition-all duration-150 disabled:bg-blueGray-500"
+          type="button"
+          [disabled]="isCreating"
+          (click)="createProduct()"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="container m-auto h-full">
+  <div class="flex content-center items-center justify-center h-full">
+    <div class="w-full lg:w-4/12 px-4">
+      <div
+        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
+      >
+        <div class="flex-auto px-4 lg:px-10 py-10 pt-1">
+          <div class="text-slate-800 text-center mb-3 font-bold mt-4">
+            <small>Sign in with credential</small>
+          </div>
+
+          <div
+            *ngIf="errorMessage"
+            class="px-4 py-2 my-2 border border-red-500 text-red-800 bg-red-100 rounded-md w-full h-fit"
+          >
+            {{ errorMessage }}
+          </div>
+
+          <form>
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Username/email
+              </label>
+              <input
+                type="username"
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                placeholder="username or email"
+                [(ngModel)]="username"
+                [ngModelOptions]="{ standalone: true }"
+                (keyup.enter)="login()"
+              />
+            </div>
+
+            <div class="relative w-full mb-3">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                placeholder="Password"
+                [(ngModel)]="password"
+                [ngModelOptions]="{ standalone: true }"
+                (keyup.enter)="login()"
+              />
+            </div>
+
+            <div class="text-center mt-6">
+              <button
+                class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                type="button"
+                (click)="login()"
+              >
+                Sign In
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
