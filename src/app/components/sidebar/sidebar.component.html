@@ -75,7 +75,7 @@
       <h6
         class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
       >
-        Admin Layout Pages
+        Application
       </h6>
       <!-- Navigation -->
 
@@ -126,7 +126,7 @@
 
         <li class="items-center">
           <a
-            [routerLink]="['/request-input']"
+            [routerLink]="['/application/request-input']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
             #requestInput="routerLinkActive"
@@ -142,7 +142,7 @@
                 requestInput.isActive ? 'opacity-75' : 'text-blueGray-300'
               "
             ></i>
-            Request Input
+            Input Request
           </a>
         </li>
 
@@ -164,7 +164,7 @@
                 requestOutput.isActive ? 'opacity-75' : 'text-blueGray-300'
               "
             ></i>
-            Request Output
+            Output Request
           </a>
         </li>
       </ul>

@@ -3,19 +3,19 @@
     <div
       class="flex flex-col sm:flex-row space-y-2 items-center sm:justify-between justify-center w-full"
     >
-      <h1 class="text-blueGray-700 font-semibold">Products</h1>
+      <h1 class="text-blueGray-700 font-semibold">Input Request</h1>
       <button
         class="bg-red-500 text-white active:bg-red-600 font-bold text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
         type="button"
         (click)="viewCreate()"
       >
-        Create New Products
+        Create New Input Request
       </button>
     </div>
 
     <!-- Search -->
     <div class="flex flex-col">
-      <h2 class="font-semibold text-xl mb-2">Search products</h2>
+      <h2 class="font-semibold text-xl mb-2">Search Input Request</h2>
       <div class="flex gap-2 w-full flex-row">
         <div class="flex flex-col w-full">
           <label for="name" class="text-blueGray-700 font-normal text-sm"
@@ -26,17 +26,19 @@
             name="name"
             placeholder="Input Name"
             class="px-2 py-2 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="name"
           />
         </div>
         <div class="flex flex-col w-full">
-          <label for="sku" class="text-blueGray-700 font-normal text-sm"
-            >SKU</label
+          <label for="email" class="text-blueGray-700 font-normal text-sm"
+            >Email</label
           >
           <input
             type="text"
-            name="sku"
-            placeholder="Input SKU"
+            name="email"
+            placeholder="Input Email"
             class="px-2 py-2 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="email"
           />
         </div>
         <button
@@ -61,99 +63,85 @@
           <thead>
             <tr>
               <th
-                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+                class="px-4 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
               >
                 Name
               </th>
               <th
-                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+                class="px-4 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
               >
-                SKU
+                Email
               </th>
               <th
-                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+                class="px-4 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
               >
-                Initial Stock
+                Status
               </th>
               <th
-                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+                class="px-4 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
               >
-                Latest Input Stock
+                Approved/Rejected Reason
               </th>
               <th
-                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
-              >
-                Latest Output Stock
-              </th>
-              <th
-                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
-              >
-                Newest Stock
-              </th>
-              <th
-                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+                class="px-4 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
               ></th>
             </tr>
           </thead>
           <tbody *ngIf="!isLoading">
             <tr
               class="hover:bg-blueGray-50 cursor-pointer"
-              *ngFor="let product of products"
+              *ngFor="let inputRequest of inputRequests"
             >
               <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-                (click)="view(product)"
+                class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                (click)="view(inputRequest)"
               >
-                {{ product.name }}
+                {{
+                  (inputRequest.name ?? inputRequest.requester.username) || "-"
+                }}
               </td>
               <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-                (click)="view(product)"
+                class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                (click)="view(inputRequest)"
               >
-                {{ product.sku }}
+                {{
+                  (inputRequest.email ?? inputRequest.requester.email) || "-"
+                }}
+              </td>
+
+              <td
+                class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                (click)="view(inputRequest)"
+              >
+                <span [class]="getClassStatus(inputRequest.status)">
+                  {{ getStatusLabel(inputRequest.status) }}
+                </span>
               </td>
               <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-                (click)="view(product)"
+                class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                (click)="view(inputRequest)"
               >
-                {{ product.initialStock }}
-              </td>
-              <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-                (click)="view(product)"
-              >
-                {{ product.latestInputStock }}
-              </td>
-              <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-                (click)="view(product)"
-              >
-                {{ product.latestOutputStock }}
-              </td>
-              <td
-                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-                (click)="view(product)"
-              >
-                {{ product.newestStock }}
+                {{ inputRequest.reason || "-" }}
               </td>
               <td
                 class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap"
               >
                 <button
+                  *ngIf="inputRequest.status === 'PENDING'"
                   class="text-red-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md mr-1 mb-1 ease-linear transition-all duration-150 h-full"
                   type="button"
-                  (click)="delete(product.id)"
+                  (click)="delete(inputRequest.id)"
                 >
                   <i class="far fa-trash-alt"></i>
                 </button>
               </td>
             </tr>
-            <tr *ngIf="products.length === 0">
+            <tr *ngIf="inputRequests.length === 0">
               <td
                 colspan="7"
                 class="w-full text-center border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
               >
-                No products found.
+                No input requests found.
               </td>
             </tr>
           </tbody>

@@ -1,0 +1,398 @@
+<div class="px-4 pr-8 w-full h-full pb-4 ml-2">
+  <div class="pt-6 -mt-2">
+    <div
+      class="flex flex-col sm:flex-row space-y-2 items-center sm:justify-between justify-center w-full"
+    >
+      <h1 class="text-blueGray-700 font-semibold">View Product</h1>
+      <div class="flex gap-2">
+        <button
+          *ngIf="inputRequest?.status === 'PENDING'"
+          class="bg-green-500 text-white font-bold text-sm px-6 py-3 rounded-lg shadow hover:shadow-lg ease-linear transition-all duration-150"
+          type="button"
+          (click)="openApproverModal()"
+        >
+          Approve
+        </button>
+        <button
+          *ngIf="inputRequest?.status === 'PENDING'"
+          class="bg-red-500 text-white font-bold text-sm px-6 py-3 rounded-lg shadow hover:shadow-lg ease-linear transition-all duration-150"
+          type="button"
+          (click)="openRejecterModal()"
+        >
+          Reject
+        </button>
+        <button
+          *ngIf="inputRequest?.status === 'PENDING'"
+          class="bg-teal-500 text-white font-bold text-sm px-6 py-3 rounded-lg shadow hover:shadow-lg ease-linear transition-all duration-150"
+          type="button"
+          (click)="viewEdit()"
+        >
+          Edit
+        </button>
+        <button
+          class="bg-white text-gray-800 font-bold text-sm px-6 py-3 rounded-lg shadow hover:shadow-lg ease-linear transition-all duration-150"
+          type="button"
+          [routerLink]="'/application/request-input'"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data -->
+  <div class="w-full my-4">
+    <div
+      class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white border border-gray-300 p-4"
+    >
+      <div *ngIf="!isLoading && inputRequest" class="grid grid-cols-2 gap-2">
+        <div class="flex flex-col gap-2 w-full">
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Input Request Details :</h6>
+            <p class="font-normal text-base"></p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Name</h6>
+            <p class="font-normal text-base">
+              : {{ inputRequest.name || "-" }}
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Email</h6>
+            <p class="font-normal text-base">
+              : {{ inputRequest.email || "-" }}
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Note</h6>
+            <p class="font-normal text-base">
+              : {{ inputRequest.note || "-" }}
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Status</h6>
+            <p class="font-normal text-base">: {{ inputRequest.status }}</p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Reason</h6>
+            <p class="font-normal text-base">
+              : {{ inputRequest.reason || "-" }}
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Created At</h6>
+            <p class="font-normal text-base">
+              : {{ inputRequest.pubFormattedCreatedAt }}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2 w-full">
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Requester Details :</h6>
+            <p class="font-normal text-base"></p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Name</h6>
+            <p class="font-normal text-base">
+              : {{ inputRequest.requester.username || "-" }}
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <h6 class="font-semibold text-base">Email</h6>
+            <p class="font-normal text-base">
+              : {{ inputRequest.requester.email || "-" }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="block w-full overflow-x-auto my-2 mt-6">
+        <h5 class="font-semibold text-lg mb-2">Detail Products</h5>
+
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead>
+            <tr>
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+              >
+                Product Name
+              </th>
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+              >
+                Product Sku
+              </th>
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+              >
+                Product Description
+              </th>
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+              >
+                Current Product Stock
+              </th>
+              <th
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+              >
+                Amount Input
+              </th>
+              <th
+                *ngIf="inputRequest && inputRequest.approverId"
+                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100"
+              >
+                Approved Amount
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="!isLoading && inputRequest.stockRequestItems">
+            <tr
+              class="hover:bg-blueGray-50 cursor-pointer"
+              *ngFor="let item of inputRequest.stockRequestItems"
+            >
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                {{ item.productName }}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                {{ item.productSku }}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                {{ item.productDescription }}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                {{ item.product?.newestStock }}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                {{ item.amount }}
+              </td>
+              <td
+                *ngIf="item.approvedAmount"
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                {{ item.approvedAmount }}
+              </td>
+            </tr>
+            <tr *ngIf="inputRequest.stockRequestItems.length === 0">
+              <td
+                colspan="7"
+                class="w-full text-center border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                No Items found.
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="isLoading">
+            <tr>
+              <td
+                colspan="7"
+                class="border-t-0 px-6 w-full text-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-spinner"></i>
+                <p class="ms-4">Loading...</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Approver -->
+<div
+  *ngIf="isOpenApproverModal"
+  class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
+>
+  <div class="relative w-auto my-6 mx-auto max-w-3xl">
+    <!--content-->
+    <div
+      class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+    >
+      <!--header-->
+      <div
+        class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t"
+      >
+        <h3 class="text-3xl font-semibold">Approve Input Request</h3>
+        <button
+          class="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold"
+          (click)="closeApproverModal()"
+        >
+          <i class="far fa-times-circle"></i>
+        </button>
+      </div>
+
+      <!--body-->
+      <div class="flex flex-col gap-2 p-6">
+        <div class="flex flex-row gap-4 items-center">
+          <h6 class="font-medium text-sm w-1/5">Product Name</h6>
+          <h6 class="font-medium text-sm w-1/5">Product Sku</h6>
+          <h6 class="font-medium text-sm w-1/5">Available Stock</h6>
+          <h6 class="font-medium text-sm w-1/5">Request Amount</h6>
+          <h6 class="font-medium text-sm w-1/5">
+            Approved Amount <span class="text-red-600">*</span>
+          </h6>
+        </div>
+
+        <div
+          class="flex flex-row items-center gap-2"
+          *ngFor="let item of approveProduct"
+        >
+          <input
+            type="text"
+            placeholder="Product Name"
+            name="product_name"
+            class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            readonly
+            [(ngModel)]="item.productName"
+          />
+          <input
+            type="text"
+            placeholder="Product Name"
+            name="product_sku"
+            class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            readonly
+            [(ngModel)]="item.productSku"
+          />
+          <input
+            type="text"
+            placeholder="Available Stock"
+            name="available_stock"
+            class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            readonly
+            [(ngModel)]="item.availableStock"
+          />
+          <input
+            type="number"
+            placeholder="Request Amount"
+            name="request_amount"
+            class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            readonly
+            [(ngModel)]="item.requestAmount"
+          />
+          <input
+            type="number"
+            placeholder="Approved Amount"
+            name="approved_amount"
+            class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="item.approveAmount"
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label for="reason" class="mb-2">Approve Reason</label>
+          <textarea
+            type="text"
+            name="reason"
+            class="border border-blueGray-300 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow w-full"
+            rows="4"
+            [(ngModel)]="reason"
+          >
+          </textarea>
+        </div>
+      </div>
+
+      <!--footer-->
+      <div
+        class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b"
+      >
+        <button
+          class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+          (click)="closeApproverModal()"
+        >
+          Close
+        </button>
+        <button
+          class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+          [disabled]="isApproving"
+          (click)="approve()"
+        >
+          Approve
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="isOpenApproverModal"
+  class="opacity-25 fixed inset-0 z-40 bg-black"
+></div>
+
+<!-- Modal Rejector -->
+<div
+  *ngIf="isOpenRejecterModal"
+  class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
+>
+  <div class="relative w-auto my-6 mx-auto max-w-3xl">
+    <!--content-->
+    <div
+      class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+    >
+      <!--header-->
+      <div
+        class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t"
+      >
+        <h3 class="text-3xl font-semibold">Reject Input Request</h3>
+        <button
+          class="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold"
+          (click)="closeRejecterModal()"
+        >
+          <i class="far fa-times-circle"></i>
+        </button>
+      </div>
+      <!--body-->
+      <div class="flex flex-col gap-2 p-6">
+        <div class="flex flex-col">
+          <label for="reason" class="mb-2">Reject Reason</label>
+          <textarea
+            type="text"
+            name="reason"
+            class="border min-w-[500px] border-blueGray-300 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow"
+            rows="4"
+            [(ngModel)]="rejectReason"
+          >
+          </textarea>
+        </div>
+      </div>
+
+      <!--footer-->
+      <div
+        class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b"
+      >
+        <button
+          class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+          (click)="closeRejecterModal()"
+        >
+          Close
+        </button>
+        <button
+          class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+          [disabled]="isRejecting"
+          (click)="reject()"
+        >
+          Reject
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="isOpenRejecterModal"
+  class="opacity-25 fixed inset-0 z-40 bg-black"
+></div>
+`

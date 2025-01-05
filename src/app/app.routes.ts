@@ -31,4 +31,18 @@ export const APP_ROUTES: Routes = [
       },
     ],
   },
+  {
+    path: 'application',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'request-input',
+        data: { layout: 'app' },
+        loadChildren: () =>
+          import('./pages/request-input/request-input.module').then(
+            (m) => m.RequestInputModule
+          ),
+      },
+    ],
+  },
 ];

@@ -1,0 +1,152 @@
+<div class="px-4 pr-8 w-full h-full pb-4 ml-2">
+  <div class="pt-6 -mt-2">
+    <div
+      class="flex flex-col sm:flex-row space-y-2 items-center sm:justify-between justify-center w-full"
+    >
+      <h1 class="text-blueGray-700 font-semibold">Create new Input Request</h1>
+    </div>
+  </div>
+
+  <div
+    *ngIf="errorMessage"
+    class="text-white px-4 mt-4 py-2 border-0 rounded relative mb-4 bg-red-500"
+  >
+    <span class="inline-block align-middle mr-8">
+      {{ errorMessage }}
+    </span>
+  </div>
+
+  <!-- Form -->
+  <div class="w-full my-4 h-full">
+    <div class="flex flex-col gap-2 w-full h-full">
+      <div class="w-full flex gap-2">
+        <div class="form-group w-full">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="name"
+          />
+        </div>
+        <div class="form-group w-full">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="email"
+          />
+        </div>
+      </div>
+
+      <div class="w-full flex gap-2">
+        <div class="form-group w-full">
+          <label for="description">Note</label>
+          <textarea
+            placeholder="Note"
+            name="note"
+            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="note"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h5 class="font-semibold text-md">Request Product</h5>
+
+        <div class="flex flex-row gap-4 items-center">
+          <h6 class="font-medium text-sm w-1/5">Product</h6>
+          <h6 class="font-medium text-sm w-1/5">Product Sku</h6>
+          <h6 class="font-medium text-sm w-1/5">Available Stock</h6>
+          <h6 class="font-medium text-sm w-1/5">Request Amount</h6>
+          <div class="w-1/5">
+            <button
+              class="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md mr-1 mb-1 ease-linear transition-all duration-150 disabled:bg-blueGray-500 h-full"
+              type="button"
+              (click)="addProduct()"
+            >
+              <i class="fas fa-plus"></i>
+              <span> Add product</span>
+            </button>
+          </div>
+        </div>
+
+        <div
+          *ngFor="let item of productRequests; let idx = index"
+          class="flex flex-row items-center gap-4"
+        >
+          <ng-select
+            class="h-full w-full"
+            id="product_id"
+            name="product_id"
+            placeholder="Select Product"
+            [loading]="isProductOptionsLoading"
+            [items]="productOptions"
+            [(ngModel)]="item.productId"
+            bindLabel="name"
+            bindValue="id"
+            [ngModelOptions]="{ standalone: true }"
+            (change)="onChangeProduct(idx)"
+          ></ng-select>
+          <!-- (search)=""
+            (open)=""
+            (change)="" -->
+          <input
+            type="text"
+            placeholder="Product Sku"
+            name="product_sku"
+            class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            readonly
+            [(ngModel)]="item.productSku"
+          />
+          <input
+            type="text"
+            placeholder="Available Stock"
+            name="available_stock"
+            class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            readonly
+            [(ngModel)]="item.availableStock"
+          />
+          <input
+            type="number"
+            placeholder="Request Stock"
+            name="request_stock"
+            class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="item.amount"
+          />
+          <div class="w-full">
+            <button
+              *ngIf="productRequests.length > 1"
+              class="text-red-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md mr-1 mb-1 ease-linear transition-all duration-150 h-full"
+              type="button"
+              (click)="deleteProduct(idx)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full flex justify-end items-center gap-2 mt-4">
+        <button
+          class="bg-white text-black font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md border border-red-500 mr-1 mb-1 ease-linear transition-all duration-150"
+          type="button"
+          [routerLink]="'/application/request-input'"
+        >
+          Cancel
+        </button>
+        <button
+          class="bg-red-500 text-white active:bg-red-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md mr-1 mb-1 ease-linear transition-all duration-150 disabled:bg-blueGray-500"
+          type="button"
+          [disabled]="isCreating"
+          (click)="saveInputRequest()"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
