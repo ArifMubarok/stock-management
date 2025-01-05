@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import axios, { AxiosError } from 'axios';
 import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { StatusRequest, StockRequest } from '../../../types/stock-request';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-request-input',
-  templateUrl: './request-input.component.html',
-  styleUrl: './request-input.component.scss',
+  selector: 'app-request-output',
+  templateUrl: './request-output.component.html',
+  styleUrl: './request-output.component.scss',
   standalone: false,
 })
-export class RequestInputComponent implements OnInit {
+export class RequestOutputComponent implements OnInit {
   // General
   private _http = axios.create({
-    baseURL: `${environment.apiUrl}/request-input`,
+    baseURL: `${environment.apiUrl}/request-output`,
     headers: {
       Authorization: `Bearer ${window.localStorage.getItem(
         environment.apiTokenIdentifier
@@ -26,7 +26,7 @@ export class RequestInputComponent implements OnInit {
   isLoading: boolean = false;
 
   // Data
-  inputRequests: StockRequest[] = [];
+  outputRequests: StockRequest[] = [];
   page: number = 1;
   totalItems: number = 0;
 
@@ -37,7 +37,7 @@ export class RequestInputComponent implements OnInit {
   constructor(private _router: Router) {}
 
   ngOnInit(): void {
-    this.getInputRequests();
+    this.getOutputRequests();
   }
 
   viewCreate() {
@@ -46,11 +46,11 @@ export class RequestInputComponent implements OnInit {
 
   view(inputRequest: any) {
     this._router.navigateByUrl(
-      `/application/request-input/view/${inputRequest.id}`
+      `/application/request-output/view/${inputRequest.id}`
     );
   }
 
-  async getInputRequests() {
+  async getOutputRequests() {
     this.isLoading = true;
 
     const params: any = {
@@ -61,7 +61,7 @@ export class RequestInputComponent implements OnInit {
       const response = await this._http.get('', { params });
       const data = response.data;
 
-      this.inputRequests = data.data.payload;
+      this.outputRequests = data.data.payload;
       this.page = data.data.currentPage;
       this.totalItems = data.data.totalAllData;
     } catch (error) {
@@ -133,7 +133,7 @@ export class RequestInputComponent implements OnInit {
         timer: 2000,
       });
 
-      this.getInputRequests();
+      this.getOutputRequests();
     } catch (error) {
       let errorMessage: string = 'Something went wrong. Please try again later';
       if (error instanceof AxiosError) {

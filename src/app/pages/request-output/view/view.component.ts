@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import axios, { AxiosError } from 'axios';
 import { environment } from '../../../../environments/environment';
-import Swal from 'sweetalert2';
 import { StockRequest } from '../../../../types/stock-request';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 interface ApproveProduct {
   productId: string;
@@ -28,7 +28,7 @@ interface ApproveFormDetail {
 export class ViewComponent implements OnInit {
   // General
   private _http = axios.create({
-    baseURL: `${environment.apiUrl}/request-input`,
+    baseURL: `${environment.apiUrl}/request-output`,
     headers: {
       Authorization: `Bearer ${window.localStorage.getItem(
         environment.apiTokenIdentifier
@@ -41,7 +41,7 @@ export class ViewComponent implements OnInit {
   isLoading: boolean = false;
   errorMessage: string | null = null;
 
-  inputRequest!: StockRequest;
+  outputRequest!: StockRequest;
 
   // Form
   approveProduct: ApproveProduct[] = [];
@@ -62,25 +62,19 @@ export class ViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDetailInputRequest();
+    this.getDetailOutputRequest();
   }
 
-  viewEdit() {
-    this._router.navigateByUrl(
-      `/application/request-input/edit/${this.modelId}`
-    );
-  }
-
-  async getDetailInputRequest() {
+  async getDetailOutputRequest() {
     this.isLoading = true;
 
     try {
       const response = await this._http.get(`${this.modelId}`);
       const data = response.data;
 
-      this.inputRequest = data.data.stockRequest;
+      this.outputRequest = data.data.stockRequest;
 
-      this.approveProduct = this.inputRequest.stockRequestItems.map(
+      this.approveProduct = this.outputRequest.stockRequestItems.map(
         (item): ApproveProduct => ({
           productId: `${item.productId}`,
           productName: item.productName,
@@ -90,6 +84,8 @@ export class ViewComponent implements OnInit {
           approveAmount: 0,
         })
       );
+
+      console.log(this.outputRequest, this.approveProduct);
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.status == 400) {
@@ -146,14 +142,14 @@ export class ViewComponent implements OnInit {
       await this._http.post(url, body);
 
       await Swal.fire({
-        title: 'Input request approved successfully',
+        title: 'Output request approved successfully',
         icon: 'success',
         timer: 3000,
         showCloseButton: true,
       });
 
       this.closeApproverModal();
-      this.getDetailInputRequest();
+      this.getDetailOutputRequest();
     } catch (error) {
       let errorMessage: string = 'Something went wrong. Please try again later';
       if (error instanceof AxiosError) {
@@ -190,14 +186,14 @@ export class ViewComponent implements OnInit {
       await this._http.post(url, body);
 
       await Swal.fire({
-        title: 'Input request rejected successfully',
+        title: 'Output request rejected successfully',
         icon: 'success',
         timer: 3000,
         showCloseButton: true,
       });
 
       this.closeRejecterModal();
-      this.getDetailInputRequest();
+      this.getDetailOutputRequest();
     } catch (error) {
       let errorMessage: string = 'Something went wrong. Please try again later';
       if (error instanceof AxiosError) {

@@ -3,6 +3,14 @@ import { AuthGuard } from '../guards/auth.guard';
 
 export const APP_ROUTES: Routes = [
   {
+    path: '',
+    data: { layout: 'login' },
+    loadChildren: () =>
+      import('./pages/request-output/create/create.module').then(
+        (m) => m.CreateModule
+      ),
+  },
+  {
     path: 'login',
     data: { layout: 'login' },
     loadChildren: () =>
@@ -31,6 +39,7 @@ export const APP_ROUTES: Routes = [
       },
     ],
   },
+
   {
     path: 'application',
     canActivate: [AuthGuard],
@@ -41,6 +50,14 @@ export const APP_ROUTES: Routes = [
         loadChildren: () =>
           import('./pages/request-input/request-input.module').then(
             (m) => m.RequestInputModule
+          ),
+      },
+      {
+        path: 'request-output',
+        data: { layout: 'app' },
+        loadChildren: () =>
+          import('./pages/request-output/request-output.module').then(
+            (m) => m.RequestOutputModule
           ),
       },
     ],

@@ -1,7 +1,7 @@
 import { Product } from './product';
 import { User } from './user';
 
-export interface InputRequest {
+export interface StockRequest {
   id: number;
   name: string | null;
   email: string | null;
