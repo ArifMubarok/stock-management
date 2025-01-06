@@ -60,6 +60,14 @@ export const APP_ROUTES: Routes = [
             (m) => m.RequestOutputModule
           ),
       },
+      {
+        path: 'notification',
+        data: { layout: 'app' },
+        loadChildren: () =>
+          import('./pages/notification/notification.module').then(
+            (m) => m.NotificationModule
+          ),
+      },
     ],
   },
 ];
