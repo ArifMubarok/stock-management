@@ -12,4 +12,4 @@ RUN npm install
 COPY . .
 
 # Start the server using the production build
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["ng", "serve", "--host", "0.0.0.0" , "--configuration" , "production"]
