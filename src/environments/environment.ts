@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://103.31.39.44:4021',
+  apiUrl: 'https://stock-management-api.nisarhyd.my.id',
   apiTokenIdentifier: 'stockManagement@Prod',
 };
