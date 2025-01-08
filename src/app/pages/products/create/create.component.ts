@@ -30,9 +30,6 @@ export class CreateComponent implements OnInit {
   sku: string | null = null;
   description: string | null = null;
   initialStock: number = 0;
-  latestInputStock: number = 0;
-  latestOutputStock: number = 0;
-  newestStock: number = 0;
 
   constructor(private _router: Router) {}
 
@@ -48,9 +45,6 @@ export class CreateComponent implements OnInit {
       sku: this.sku,
       description: this.description,
       initialStock: this.initialStock,
-      latestInputStock: this.latestInputStock,
-      latestOutputStock: this.latestOutputStock,
-      newestStock: this.newestStock,
     };
 
     try {

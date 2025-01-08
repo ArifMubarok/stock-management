@@ -1,3 +1,5 @@
+import { StockRequestItem } from './stock-request';
+
 export interface Product {
   id: number;
   name: string;
@@ -11,4 +13,5 @@ export interface Product {
   updatedAt: Date;
   deletedAt: Date | null;
   pubFormattedCreatedAt: string;
+  stockRequestItems?: StockRequestItem[];
 }

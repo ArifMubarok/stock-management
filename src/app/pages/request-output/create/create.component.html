@@ -49,10 +49,10 @@
               <div class="w-full flex gap-2">
                 <div class="form-group w-full">
                   <label for="purposes"
-                    >Purposes <span class="text-red-600">*</span></label
+                    >Function <span class="text-red-600">*</span></label
                   >
                   <textarea
-                    placeholder="Purposes"
+                    placeholder="Function"
                     name="purposes"
                     class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
                     [(ngModel)]="purpose"
@@ -154,9 +154,9 @@
                 <button
                   class="bg-white text-black font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md border border-red-500 mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
-                  [routerLink]="'/application/request-input'"
+                  (click)="resetForm()"
                 >
-                  Cancel
+                  Reset
                 </button>
                 <button
                   class="bg-red-500 text-white active:bg-red-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md mr-1 mb-1 ease-linear transition-all duration-150 disabled:bg-blueGray-500"

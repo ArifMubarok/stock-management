@@ -30,9 +30,9 @@ export class RequestInputComponent implements OnInit {
   page: number = 1;
   totalItems: number = 0;
 
-  // Filter
-  name: string | null = null;
-  email: string | null = null;
+  // Search
+  nameSearch: string = '';
+  emailSearch: string = '';
 
   constructor(private _router: Router) {}
 
@@ -50,11 +50,20 @@ export class RequestInputComponent implements OnInit {
     );
   }
 
+  search() {
+    this.page = 1;
+    this.getInputRequests();
+  }
+
   async getInputRequests() {
     this.isLoading = true;
 
     const params: any = {
       page: this.page,
+      name: this.nameSearch,
+      nameRequester: this.nameSearch,
+      email: this.emailSearch,
+      emailRequester: this.emailSearch,
     };
 
     try {

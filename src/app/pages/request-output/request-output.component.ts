@@ -41,7 +41,7 @@ export class RequestOutputComponent implements OnInit {
   }
 
   viewCreate() {
-    this._router.navigateByUrl('/application/request-input/create');
+    this._router.navigateByUrl('/');
   }
 
   view(inputRequest: any) {

@@ -40,8 +40,6 @@
             [(ngModel)]="sku"
           />
         </div>
-      </div>
-      <div class="w-full flex gap-2">
         <div class="form-group w-full">
           <label for="initial-stock">Initial Stock </label>
           <input
@@ -53,39 +51,6 @@
             [(ngModel)]="initialStock"
           />
         </div>
-        <div class="form-group w-full">
-          <label for="latest-input-stock">Latest Input Stock </label>
-          <input
-            type="number"
-            placeholder="Latest Input Stock"
-            name="latest-input-stock"
-            min="0"
-            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
-            [(ngModel)]="latestInputStock"
-          />
-        </div>
-        <div class="form-group w-full">
-          <label for="latest-output-stock">Latest Output Stock </label>
-          <input
-            type="number"
-            placeholder="Latest Output Stock"
-            name="latest-output-stock"
-            min="0"
-            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
-            [(ngModel)]="latestOutputStock"
-          />
-        </div>
-        <div class="form-group w-full">
-          <label for="newest-stock">Newest Stock </label>
-          <input
-            type="number"
-            placeholder="Newest Stock"
-            name="newest-stock"
-            min="0"
-            class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
-            [(ngModel)]="newestStock"
-          />
-        </div>
       </div>
       <div class="w-full flex gap-2">
         <div class="form-group w-full">
@@ -93,6 +58,7 @@
           <textarea
             placeholder="Description"
             name="description"
+            rows="6"
             class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
             [(ngModel)]="description"
           ></textarea>

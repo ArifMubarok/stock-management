@@ -31,10 +31,20 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   totalItems: number = 0;
   page: number = 1;
+  perPage: number = 10;
+
+  // Search
+  nameSearch: string = '';
+  skuSearch: string = '';
 
   constructor(private _router: Router) {}
 
   ngOnInit(): void {
+    this.getDataProducts();
+  }
+
+  search() {
+    this.page = 1;
     this.getDataProducts();
   }
 
@@ -45,7 +55,12 @@ export class ProductsComponent implements OnInit {
 
     try {
       const response = await this._http.get('', {
-        params: { page: this.page },
+        params: {
+          page: this.page,
+          limit: this.perPage,
+          name: this.nameSearch,
+          sku: this.skuSearch,
+        },
       });
 
       const data = response.data;
@@ -53,6 +68,7 @@ export class ProductsComponent implements OnInit {
       this.products = data.data.payload;
       this.page = data.data.currentPage;
       this.totalItems = data.data.totalAllData;
+      this.perPage = data.data.limit;
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.status == 400) {
@@ -122,5 +138,9 @@ export class ProductsComponent implements OnInit {
 
   viewCreate() {
     this._router.navigateByUrl('/settings/products/create');
+  }
+
+  selectedPage(page: number) {
+    console.log(page);
   }
 }

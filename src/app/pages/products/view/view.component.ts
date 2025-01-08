@@ -3,6 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import axios, { AxiosError } from 'axios';
 import { environment } from '../../../../environments/environment';
 import { Product } from '../../../../types/product';
+import {
+  StatusRequest,
+  StockRequestItem,
+  TypeRequest,
+} from '../../../../types/stock-request';
 
 @Component({
   selector: 'app-view',
@@ -65,6 +70,70 @@ export class ViewComponent implements OnInit {
       setTimeout(() => {
         this.errorMessage = null;
       }, 3000);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  getStatusLabel(status: StatusRequest) {
+    let label: string = '';
+
+    if (status === 'PENDING') {
+      label = 'Pending';
+    } else if (status === 'APPROVED') {
+      label = 'Approved';
+    } else if (status === 'REJECTED') {
+      label = 'Rejected';
+    }
+    return label;
+  }
+
+  getClassStatus(status: StatusRequest) {
+    let statusClass: string = 'px-2 py-1 border border-solid rounded-full ';
+
+    if (status === 'PENDING') {
+      statusClass += 'bg-yellow-100 text-yellow-800 border-yellow-600 ';
+    } else if (status === 'APPROVED') {
+      statusClass += 'bg-green-100 text-green-800 border-green-600 ';
+    } else if (status === 'REJECTED') {
+      statusClass += 'bg-red-100 text-red-800 border-red-600 ';
+    }
+    return statusClass;
+  }
+
+  getTypeLabel(type: TypeRequest) {
+    let label: string = '';
+
+    if (type === 'INPUT') {
+      label = 'Input';
+    } else if (type === 'OUTPUT') {
+      label = 'Output';
+    }
+    return label;
+  }
+
+  getTypeClass(type: TypeRequest) {
+    let typeClass: string = 'px-2 py-1 border border-solid rounded-full ';
+
+    if (type === 'INPUT') {
+      typeClass += 'bg-green-100 text-green-800 border-green-600 ';
+    } else if (type === 'OUTPUT') {
+      typeClass += 'bg-red-100 text-red-800 border-red-600 ';
+    }
+    return typeClass;
+  }
+
+  viewDetail(history: StockRequestItem) {
+    console.log(history);
+
+    if (history.stockRequest.type == 'INPUT') {
+      this._router.navigateByUrl(
+        `/application/request-input/view/${history.stockRequestId}`
+      );
+    } else if (history.stockRequest.type == 'OUTPUT') {
+      this._router.navigateByUrl(
+        `/application/request-output/view/${history.stockRequestId}`
+      );
     }
   }
 }

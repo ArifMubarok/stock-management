@@ -28,6 +28,7 @@ export type TypeRequest = 'INPUT' | 'OUTPUT';
 
 export interface StockRequestItem {
   id: number;
+  stockRequest: StockRequest;
   stockRequestId: number;
   productId: number;
   product?: Product;

@@ -26,6 +26,8 @@
             name="name"
             placeholder="Input Name"
             class="px-2 py-2 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="nameSearch"
+            (keyup.enter)="search()"
           />
         </div>
         <div class="flex flex-col w-full">
@@ -37,11 +39,14 @@
             name="sku"
             placeholder="Input SKU"
             class="px-2 py-2 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
+            [(ngModel)]="skuSearch"
+            (keyup.enter)="search()"
           />
         </div>
         <button
           class="bg-green-500 text-white active:bg-green-600 font-bold text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 flex items-center gap-2 mt-5"
           type="button"
+          (click)="search()"
         >
           <i class="fas fa-search"></i>
           Search
@@ -172,4 +177,16 @@
       </div>
     </div>
   </div>
+
+  <!-- Pagination -->
+
+  <app-pagination
+    *ngIf="!isLoading"
+    [totalItems]="totalItems"
+    [currentPage]="page"
+    [perPage]="perPage"
+    (selectedPage)="selectedPage($event)"
+  ></app-pagination>
+
+  <!-- ! Pagination -->
 </div>
