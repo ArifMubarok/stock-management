@@ -99,17 +99,13 @@
                 class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
                 (click)="view(inputRequest)"
               >
-                {{
-                  (inputRequest.name ?? inputRequest.requester.username) || "-"
-                }}
+                {{ inputRequest.name || "-" }}
               </td>
               <td
                 class="border-t-0 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
                 (click)="view(inputRequest)"
               >
-                {{
-                  (inputRequest.email ?? inputRequest.requester.email) || "-"
-                }}
+                {{ inputRequest.email || "-" }}
               </td>
 
               <td
@@ -164,3 +160,13 @@
     </div>
   </div>
 </div>
+
+<!-- Pagination -->
+<app-pagination
+  *ngIf="!isLoading"
+  [totalItems]="totalItems"
+  [currentPage]="page"
+  [perPage]="perPage"
+  (selectedPage)="selectedPage($event)"
+></app-pagination>
+<!-- ! Pagination -->

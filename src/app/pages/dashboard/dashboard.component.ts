@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { StatusRequest, StockRequest } from '../../../types/stock-request';
+import { Product } from '../../../types/product';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,13 +34,16 @@ export class DashboardComponent implements OnInit {
   limit: number = 5;
   isLoadingOutputRequest: boolean = false;
   isLoadingInputRequest: boolean = false;
+  isLoadingProduct: boolean = false;
   outputRequests: StockRequest[] = [];
   inputRequests: StockRequest[] = [];
+  products: Product[] = [];
 
   ngOnInit(): void {
     this.getDataDashboard();
     this.getInputRequests();
     this.getOutputRequests();
+    this.getProducts();
   }
 
   async getDataDashboard() {
@@ -51,7 +55,6 @@ export class DashboardComponent implements OnInit {
       const response = await this._http.get('dashboard');
 
       const data = response.data;
-      console.log(data);
 
       this.totalProduct = data.totalProduct;
       this.totalInputRequest = data.totalInputRequest;
@@ -166,6 +169,41 @@ export class DashboardComponent implements OnInit {
       });
     } finally {
       this.isLoading = false;
+    }
+  }
+
+  async getProducts() {
+    this.isLoadingProduct = true;
+
+    try {
+      const response = await this._http.get('products', {
+        params: {
+          limit: this.limit,
+        },
+      });
+
+      const data = response.data;
+
+      this.products = data.data.payload;
+    } catch (error) {
+      let errorMessage: string = 'Something went wrong. Please try again later';
+      if (error instanceof AxiosError) {
+        if (error.status == 400) {
+          errorMessage = error.response?.data.message;
+
+          if (Array.isArray(errorMessage)) {
+            errorMessage = errorMessage.join('\n');
+          }
+        }
+      }
+
+      Swal.fire({
+        title: errorMessage,
+        icon: 'error',
+        timer: 3000,
+      });
+    } finally {
+      this.isLoadingProduct = false;
     }
   }
 }

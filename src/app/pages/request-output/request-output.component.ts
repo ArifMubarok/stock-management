@@ -29,6 +29,7 @@ export class RequestOutputComponent implements OnInit {
   outputRequests: StockRequest[] = [];
   page: number = 1;
   totalItems: number = 0;
+  perPage: number = 10;
 
   // Filter
   name: string | null = null;
@@ -55,6 +56,9 @@ export class RequestOutputComponent implements OnInit {
 
     const params: any = {
       page: this.page,
+      limit: this.perPage,
+      name: this.name,
+      email: this.email,
     };
 
     try {
@@ -151,5 +155,15 @@ export class RequestOutputComponent implements OnInit {
         timer: 3000,
       });
     }
+  }
+
+  selectedPage(page: number) {
+    this.page = page;
+    this.getOutputRequests();
+  }
+
+  search() {
+    this.page = 1;
+    this.getOutputRequests();
   }
 }

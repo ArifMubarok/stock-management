@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { RequestOutputComponent } from './request-output.component';
 import { FormsModule } from '@angular/forms';
+import { PaginationComponent } from '../../components/pagination/pagination.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [RequestOutputComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), FormsModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    FormsModule,
+    PaginationComponent,
+  ],
 })
 export class RequestOutputModule {}

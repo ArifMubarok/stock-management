@@ -1,4 +1,4 @@
-<div class="px-4 w-full h-full pb-4">
+<div class="px-4 w-full h-full">
   <div class="pt-6 -mt-2">
     <div
       class="flex flex-col sm:flex-row space-y-2 items-center sm:justify-between justify-center w-full"
@@ -83,6 +83,16 @@
     </div>
   </div>
 </div>
+
+<!-- Pagination -->
+<app-pagination
+  *ngIf="!isLoading"
+  [totalItems]="totalItems"
+  [currentPage]="page"
+  [perPage]="perPage"
+  (selectedPage)="selectedPage($event)"
+></app-pagination>
+<!-- ! Pagination -->
 
 <!-- Modal Rejector -->
 <div

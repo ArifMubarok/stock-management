@@ -29,6 +29,7 @@ export class RequestInputComponent implements OnInit {
   inputRequests: StockRequest[] = [];
   page: number = 1;
   totalItems: number = 0;
+  perPage: number = 10;
 
   // Search
   nameSearch: string = '';
@@ -60,10 +61,9 @@ export class RequestInputComponent implements OnInit {
 
     const params: any = {
       page: this.page,
+      limit: this.perPage,
       name: this.nameSearch,
-      nameRequester: this.nameSearch,
       email: this.emailSearch,
-      emailRequester: this.emailSearch,
     };
 
     try {
@@ -160,5 +160,10 @@ export class RequestInputComponent implements OnInit {
         timer: 3000,
       });
     }
+  }
+
+  selectedPage(page: number) {
+    this.page = page;
+    this.getInputRequests();
   }
 }

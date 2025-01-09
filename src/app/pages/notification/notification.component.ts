@@ -29,6 +29,7 @@ export class NotificationComponent implements OnInit {
   notifications: Notification[] = [];
   totalItems: number = 0;
   page: number = 1;
+  perPage: number = 25;
 
   isOpenModalNotif: boolean = false;
   notifTitle: string | null = null;
@@ -112,5 +113,10 @@ export class NotificationComponent implements OnInit {
         this.errorMessage = null;
       }, 3000);
     }
+  }
+
+  selectedPage(page: number) {
+    this.page = page;
+    this.getNotifications();
   }
 }

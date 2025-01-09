@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 interface ProductRequest {
   productId: string | null;
   productSku: string | null;
-  availableStock: number;
   amount: number;
 }
 
@@ -35,7 +34,6 @@ export class CreateComponent implements OnInit {
     {
       productId: null,
       productSku: null,
-      availableStock: 0,
       amount: 0,
     },
   ];
@@ -105,7 +103,6 @@ export class CreateComponent implements OnInit {
       {
         productId: null,
         productSku: null,
-        availableStock: 0,
         amount: 0,
       },
     ];
@@ -115,7 +112,6 @@ export class CreateComponent implements OnInit {
     this.productRequests.push({
       productId: null,
       productSku: null,
-      availableStock: 0,
       amount: 0,
     });
   }
@@ -136,7 +132,6 @@ export class CreateComponent implements OnInit {
 
     if (selectedProduct) {
       selectedProduct.productSku = product?.sku || null;
-      selectedProduct.availableStock = product?.newestStock || 0;
     }
   }
   onSearchProduct(event: any) {

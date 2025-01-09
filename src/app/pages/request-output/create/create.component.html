@@ -76,11 +76,10 @@
                 <h5 class="font-semibold text-md">Request Product</h5>
 
                 <div class="flex flex-row gap-4 items-center">
-                  <h6 class="font-medium text-sm w-1/5">Product</h6>
-                  <h6 class="font-medium text-sm w-1/5">Product Sku</h6>
-                  <h6 class="font-medium text-sm w-1/5">Available Stock</h6>
-                  <h6 class="font-medium text-sm w-1/5">Request Amount</h6>
-                  <div class="w-1/5">
+                  <h6 class="font-medium text-sm w-1/4">Product</h6>
+                  <h6 class="font-medium text-sm w-1/4">Product Sku</h6>
+                  <h6 class="font-medium text-sm w-1/4">Request Amount</h6>
+                  <div class="w-1/4">
                     <button
                       class="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md mr-1 mb-1 ease-linear transition-all duration-150 disabled:bg-blueGray-500 h-full"
                       type="button"
@@ -111,9 +110,6 @@
                     (search)="onSearchProduct($event)"
                     (open)="onOpenProductOptions(item)"
                   ></ng-select>
-                  <!-- (search)=""
-            (open)=""
-            (change)="" -->
                   <input
                     type="text"
                     placeholder="Product Sku"
@@ -121,14 +117,6 @@
                     class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
                     readonly
                     [(ngModel)]="item.productSku"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Available Stock"
-                    name="available_stock"
-                    class="placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:shadow-outline w-full"
-                    readonly
-                    [(ngModel)]="item.availableStock"
                   />
                   <input
                     type="number"

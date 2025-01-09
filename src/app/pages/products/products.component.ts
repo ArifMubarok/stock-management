@@ -141,6 +141,7 @@ export class ProductsComponent implements OnInit {
   }
 
   selectedPage(page: number) {
-    console.log(page);
+    this.page = page;
+    this.getDataProducts();
   }
 }
